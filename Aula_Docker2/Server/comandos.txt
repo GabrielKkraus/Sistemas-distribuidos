@@ -1,0 +1,9 @@
+docker run -p 8000:8000 --rm webserver
+docker network ls
+docker network create --driver bridge rede 
+
+docker run -d --name webserver --network rede webserver
+
+-d libera terminal
+
+

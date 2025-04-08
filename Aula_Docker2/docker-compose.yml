@@ -1,0 +1,15 @@
+services:
+  webserver:
+    build: Server
+    container_name: webserver
+    ports:
+      - 8000:8000
+    volumes:
+      - ./servidor/www:/www
+  clientwww:
+    build: cliente
+      
+  redis:
+    image: redis:alpine
+    container_name: redis-Server
+   
