@@ -1,0 +1,3 @@
+gradle init --package=engtelecom.std
+
+./gradlew run -q

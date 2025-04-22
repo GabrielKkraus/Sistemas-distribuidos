@@ -9,3 +9,7 @@ docker ps
 
 
 imagem que suba um jwebserver
+
+
+git config --global user.name "GabrielKkraus"
+git config --global user.email gabrielkraus@gmail.com
