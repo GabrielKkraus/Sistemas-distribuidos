@@ -13,28 +13,35 @@ import java.util.Scanner;
 public class App {
 
     public static void main(String[] args) {
-     String servidor =args[0];//"localhost"; //127.0.01;
+        String servidor = args[0];// "localhost"; //127.0.01;
+        int porta = Integer.parseInt(args[1]);
 
-     int porta = Integer.parseInt(args[1]);
+        try (Socket socket = new Socket(servidor, porta)) {
+                BufferedReader entrada = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+                OutputStreamWriter saida = new OutputStreamWriter(socket.getOutputStream(), "UTF-8");
+                Scanner teclado = new Scanner(System.in);
+                while (true) {
 
-    try (Socket socket = new Socket(servidor, porta)){
-        System.out.println("conetado no servidor...");
+                    // String resposta = entrada.readLine();
 
-        // estabelecer fluxos de I/O
-        BufferedReader entrada = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-        OutputStreamWriter saida = new OutputStreamWriter(socket.getOutputStream(),"UTF-8");
+                    String mensagem = teclado.nextLine();
+                    saida.write(mensagem + "\n");
+                    saida.flush();
 
-            saida.write("Olá, eu sou o cliente!\n");
-            //String resposta = entrada.readLine();
-            Scanner teclado = new Scanner(System.in);
-            String mensagem = teclado.nextLine();
-            System.out.println("servidor falou: " + mensagem);
-            saida.flush();
+                    if (mensagem.equals("fim")) {
+                        break;
+                    }
 
-           
+                    saida.write("ola. sou o servidor\n");
+                    saida.flush();
+                    String resposta = entrada.readLine();
+                    System.out.println("Resposta do servidor: " + resposta);
+                }
 
-     } catch (Exception e) {
-        System.err.println("Erro: " + e.toString());
-     }
+            } catch (Exception e) {
+                System.err.println("Erro: " + e.toString());
+            }
+
+        }
+
     }
-}
